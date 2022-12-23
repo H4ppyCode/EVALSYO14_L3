@@ -33,9 +33,12 @@ while True:
     middleware_sock.sendto(data.encode(), addr)
 
     # Envoyer ok au client
-    # data2 = "ok"
-    # print("Données envoyé au Client {} : {}".format(addr, data2))
-    # middleware_sock.sendto(data2.encode(), CLIENT_ADDRESS)
-    word = "yess"
-    middleware_sock.sendto(word.encode(), CLIENT_ADDRESS)
-    print("Mot  envoyé au client : {}".format(word))
+    data = "ok"
+    print("Données envoyé au Client {} : {}".format(addr, data))
+    middleware_sock.sendto(data.encode(), SERVER_ADDRESS)
+
+
+    data, addr = "check moi ça"
+    data = data.decode()
+    middleware_sock.sendto(data.encode(), SERVER_ADDRESS)
+    print('okay')
