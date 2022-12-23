@@ -53,4 +53,4 @@ while True:
 
     word = random.choice(words)
     server_sock.sendto(word.encode(), MIDDLEWARE_ADDRESS)
-    print("Mot aléatoire envoyé au client : {}".format(word))
+    print("Mot aléatoire envoyé au middleware : {}".format(word))
