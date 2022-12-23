@@ -5,28 +5,28 @@ lives = 5
 progress = "_" * len(WORD)
 
 while lives > 0:
-    # Print the game state
+    # Print le jeu
     print(f"Progress: {progress}")
     print(f"Lives: {lives}")
 
-    # Read the player's guess
-    guess = input("Guess a letter: ")
+    # Lecture des input du joueur
+    guess = input("Donner un lettre: ")
     if len(guess) != 1:
-        print("Invalid input. Please enter a single letter.")
+        print("Invalide, n'entrez qu'une seule lettre")
         continue
 
-    # Update the game state based on the player's guess
+    # Mettre à jour le jeu selon les input du joueur
     if guess not in WORD:
         lives -= 1
-        print("Wrong! The letter is not in the word.")
+        print("Faux! La lettre n'est pas dans le mot.")
     else:
         for i in range(len(WORD)):
             if WORD[i] == guess:
-                progress = progress[:i] + guess + progress[i+1:]
+                progress = progress[:i] + guess + progress[i + 1:]
 
-    # Check if the player has won or lost
+    # Vérifier si le joueur a gagné ou perdu
     if progress == WORD:
-        print("Congratulations! You have guessed the word: " + WORD)
+        print("Bien joué ! Vous avez deviné le mot : " + WORD)
         break
 if lives == 0:
-    print("Game over. The word was: " + WORD)
+    print("Game over. Le mot était : " + WORD)
