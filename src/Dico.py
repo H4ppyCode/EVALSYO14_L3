@@ -32,25 +32,31 @@ import socket
 from random import choice
 
 # Adresse et port du middleware
-MIDDLEWARE_ADDRESS = ("localhost", 5001)
+MIDDLEWARE_ADDRESS = ("localhost", 6002)
 
 # Créez un socket en mode UDP
+
 server_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 # Liez le socket à l'adresse et au port du serveur
-server_sock.bind(("localhost", 5000))
+server_sock.bind(("localhost", 6001))
 
 while True:
     # Recevez des données envoyées par le middleware
-    data, addr = server_sock.recvfrom(1024)
-    data = data.decode()
-    print("Données reçues du middleware {} : {}".format(addr, data))
+    try:
+        data, addr = server_sock.recvfrom(1024)
+        data = data.decode()
+        print("Données reçues du middleware {} : {}".format(addr, data))
 
-    # Si la commande est "start game", envoyez un mot aléatoire au client
-    if data == "start game":
-        with urllib.request.urlopen("https://karczmarczuk.users.greyc.fr/TEACH/TAL/Textes/motsfrgut.txt") as f:
-            words = f.read().decode(encoding="iso-8859-1").split()
+        # Si la commande est "start game", envoyez un mot aléatoire au client
+        if data == "start game":
+            with urllib.request.urlopen("https://karczmarczuk.users.greyc.fr/TEACH/TAL/Textes/motsfrgut.txt") as f:
+                words = f.read().decode(encoding="iso-8859-1").split()
+        else:
+            break
 
-    word = random.choice(words)
-    server_sock.sendto(word.encode(), MIDDLEWARE_ADDRESS)
-    print("Mot aléatoire envoyé au middleware : {}".format(word))
+        word = random.choice(words)
+        server_sock.sendto(word.encode(), MIDDLEWARE_ADDRESS)
+        print("Mot aléatoire envoyé au middleware : {}".format(word))
+    except:
+        pass
